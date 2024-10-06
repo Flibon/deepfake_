@@ -212,6 +212,7 @@ def allowed_video_file(filename):
         return True
     else: 
         return False
+
 def index(request):
     if request.method == 'GET':
         video_upload_form = VideoUploadForm()
@@ -283,6 +284,7 @@ def predict_page(request):
             model = Model(2).cuda()  # Adjust the model instantiation according to your model structure
         else:
             model = Model(2).cpu()  # Adjust the model instantiation according to your model structure
+            
         model_name = os.path.join(settings.PROJECT_DIR, 'models', get_accurate_model(sequence_length))
         path_to_model = os.path.join(settings.PROJECT_DIR, model_name)
         model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')))
@@ -388,5 +390,6 @@ def about(request):
 
 def handler404(request,exception):
     return render(request, '404.html', status=404)
+    
 def cuda_full(request):
     return render(request, 'cuda_full.html')
